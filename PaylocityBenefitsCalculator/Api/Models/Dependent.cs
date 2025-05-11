@@ -1,4 +1,6 @@
-﻿namespace Api.Models;
+﻿using System;
+
+namespace EmployeeBenefitCostCalculation.Api.Models;
 
 public class Dependent
 {

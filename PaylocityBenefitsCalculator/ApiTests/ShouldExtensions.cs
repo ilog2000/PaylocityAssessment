@@ -1,8 +1,11 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Api.Models;
+
+using EmployeeBenefitCostCalculation.Api.Models;
+
 using Newtonsoft.Json;
+
 using Xunit;
 
 namespace ApiTests;

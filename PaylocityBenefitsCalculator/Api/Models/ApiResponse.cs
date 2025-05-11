@@ -1,4 +1,4 @@
-﻿namespace Api.Models;
+﻿namespace EmployeeBenefitCostCalculation.Api.Models;
 
 public class ApiResponse<T>
 {

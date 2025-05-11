@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Api.Dtos.Dependent;
-using Api.Models;
+using EmployeeBenefitCostCalculation.Api.Dtos.Dependent;
+using EmployeeBenefitCostCalculation.Api.Models;
 using Xunit;
 
 namespace ApiTests.IntegrationTests;

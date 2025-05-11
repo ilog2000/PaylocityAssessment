@@ -1,6 +1,8 @@
-﻿using Api.Models;
+﻿using System;
 
-namespace Api.Dtos.Dependent;
+using EmployeeBenefitCostCalculation.Api.Models;
+
+namespace EmployeeBenefitCostCalculation.Api.Dtos.Dependent;
 
 public class GetDependentDto
 {
