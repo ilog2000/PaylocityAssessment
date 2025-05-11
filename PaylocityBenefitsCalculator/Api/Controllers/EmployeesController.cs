@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-using EmployeeBenefitCostCalculation.Api.Dtos.Dependent;
 using EmployeeBenefitCostCalculation.Api.Dtos.Employee;
 using EmployeeBenefitCostCalculation.Api.Models;
+using EmployeeBenefitCostCalculation.Api.Repositories;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,90 +16,44 @@ namespace EmployeeBenefitCostCalculation.Api.Controllers;
 [Route("api/v1/[controller]")]
 public class EmployeesController : ControllerBase
 {
+    private readonly IEmployeesRepository _employeesRepository;
+
+    public EmployeesController(IEmployeesRepository employeesRepository)
+    {
+        _employeesRepository = employeesRepository;
+    }
+
     [SwaggerOperation(Summary = "Get employee by id")]
     [HttpGet("{id}")]
     public async Task<ActionResult<ApiResponse<GetEmployeeDto>>> Get(int id)
     {
-        throw new NotImplementedException();
+        var employee = await _employeesRepository.GetEmployeeByIdAsync(id);
+        if (employee == null)
+        {
+            return NotFound(new ApiResponse<GetEmployeeDto>
+            {
+                Success = false,
+                Error = "NOT FOUND",
+                Message = "Employee not found"
+            });
+        }
+
+        return new ApiResponse<GetEmployeeDto>
+        {
+            Data = employee.ToDto(),
+            Success = true
+        };
     }
 
     [SwaggerOperation(Summary = "Get all employees")]
     [HttpGet("")]
     public async Task<ActionResult<ApiResponse<List<GetEmployeeDto>>>> GetAll()
     {
-        //task: use a more realistic production approach
-        var employees = new List<GetEmployeeDto>
+        var employees = await _employeesRepository.GetAllEmployeesAsync();
+        return new ApiResponse<List<GetEmployeeDto>>
         {
-            new()
-            {
-                Id = 1,
-                FirstName = "LeBron",
-                LastName = "James",
-                Salary = 75420.99m,
-                DateOfBirth = new DateTime(1984, 12, 30)
-            },
-            new()
-            {
-                Id = 2,
-                FirstName = "Ja",
-                LastName = "Morant",
-                Salary = 92365.22m,
-                DateOfBirth = new DateTime(1999, 8, 10),
-                Dependents = new List<GetDependentDto>
-                {
-                    new()
-                    {
-                        Id = 1,
-                        FirstName = "Spouse",
-                        LastName = "Morant",
-                        Relationship = Relationship.Spouse,
-                        DateOfBirth = new DateTime(1998, 3, 3)
-                    },
-                    new()
-                    {
-                        Id = 2,
-                        FirstName = "Child1",
-                        LastName = "Morant",
-                        Relationship = Relationship.Child,
-                        DateOfBirth = new DateTime(2020, 6, 23)
-                    },
-                    new()
-                    {
-                        Id = 3,
-                        FirstName = "Child2",
-                        LastName = "Morant",
-                        Relationship = Relationship.Child,
-                        DateOfBirth = new DateTime(2021, 5, 18)
-                    }
-                }
-            },
-            new()
-            {
-                Id = 3,
-                FirstName = "Michael",
-                LastName = "Jordan",
-                Salary = 143211.12m,
-                DateOfBirth = new DateTime(1963, 2, 17),
-                Dependents = new List<GetDependentDto>
-                {
-                    new()
-                    {
-                        Id = 4,
-                        FirstName = "DP",
-                        LastName = "Jordan",
-                        Relationship = Relationship.DomesticPartner,
-                        DateOfBirth = new DateTime(1974, 1, 2)
-                    }
-                }
-            }
-        };
-
-        var result = new ApiResponse<List<GetEmployeeDto>>
-        {
-            Data = employees,
+            Data = employees.Select(x => x.ToDto()).ToList(),
             Success = true
         };
-
-        return result;
     }
 }

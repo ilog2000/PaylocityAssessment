@@ -9,6 +9,7 @@ public class Employee
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public decimal Salary { get; set; }
+    public decimal Benefits { get; set; }
     public DateTime DateOfBirth { get; set; }
     public ICollection<Dependent> Dependents { get; set; } = new List<Dependent>();
 }
