@@ -1,7 +1,7 @@
 using EmployeeBenefitCostCalculation.Api.Dtos.Dependent;
 using EmployeeBenefitCostCalculation.Api.Models;
 
-namespace EmployeeBenefitCostCalculation.Api.Repositories;
+namespace EmployeeBenefitCostCalculation.Api.Extensions;
 
 public static class DependentMapper
 {

@@ -4,5 +4,5 @@ namespace EmployeeBenefitCostCalculation.Api.Services;
 
 public interface IEmployeeCalculationRule
 {
-    Employee Apply(Employee employee);
+    EmployeePayslip Apply(EmployeePayslip payslip);
 }

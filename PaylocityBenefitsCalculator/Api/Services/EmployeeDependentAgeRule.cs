@@ -9,18 +9,18 @@ public class EmployeeDependentAgeRule : IEmployeeCalculationRule
     private const int DependentAgeThreshold = 50;
     private const decimal DependentAgeBenefit = 200.00m;
 
-    public Employee Apply(Employee employee)
+    public EmployeePayslip Apply(EmployeePayslip payslip)
     {
-        foreach (var dependent in employee.Dependents)
+        foreach (var dependent in payslip.Employee!.Dependents)
         {
             var age = GetDependentAge(dependent.DateOfBirth);
             if (age > DependentAgeThreshold)
             {
-                employee.MonthlyBenefits += DependentAgeBenefit;
+                payslip.Benefits += DependentAgeBenefit;
             }
         }
 
-        return employee;
+        return payslip;
     }
 
     private int GetDependentAge(DateTime dateOfBirth)

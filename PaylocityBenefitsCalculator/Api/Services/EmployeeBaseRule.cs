@@ -6,9 +6,9 @@ public class EmployeeBaseRule : IEmployeeCalculationRule
 {
     private const decimal EmployeeBaseBenefit = 1000.00m; // Base benefit for each employee
 
-    public Employee Apply(Employee employee)
+    public EmployeePayslip Apply(EmployeePayslip payslip)
     {
-        employee.MonthlyBenefits += EmployeeBaseBenefit;
-        return employee;
+        payslip.Benefits += EmployeeBaseBenefit;
+        return payslip;
     }
 }

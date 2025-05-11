@@ -6,13 +6,13 @@ public class EmployeeDependentBaseRule : IEmployeeCalculationRule
 {
     private const decimal DependentBaseBenefit = 600.00m; // Base benefit for each dependent
 
-    public Employee Apply(Employee employee)
+    public EmployeePayslip Apply(EmployeePayslip payslip)
     {
-        foreach (var dependent in employee.Dependents)
+        foreach (var dependent in payslip.Employee!.Dependents)
         {
-            employee.MonthlyBenefits += DependentBaseBenefit;
+            payslip.Benefits += DependentBaseBenefit;
         }
 
-        return employee;
+        return payslip;
     }
 }

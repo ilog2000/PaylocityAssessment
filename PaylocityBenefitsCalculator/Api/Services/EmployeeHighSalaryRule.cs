@@ -9,14 +9,14 @@ public class EmployeeHighSalaryRule : IEmployeeCalculationRule
     private const decimal SalaryThreshold = 80_000.00m;
     private const decimal HighSalaryBenefit = 0.02m; // 2% of annual salary
 
-    public Employee Apply(Employee employee)
+    public EmployeePayslip Apply(EmployeePayslip payslip)
     {
-        if (employee.Salary > SalaryThreshold)
+        if (payslip.Employee!.Salary > SalaryThreshold)
         {
-            var monthlyAmount = Math.Round(employee.Salary * HighSalaryBenefit / 12, 2); // 2% of annual salary divided by 12 months, rounded to cents
-            employee.MonthlyBenefits += monthlyAmount;
+            var monthlyAmount = Math.Round(payslip.Employee!.Salary * HighSalaryBenefit / 12, 2); // 2% of annual salary divided by 12 months, rounded to cents
+            payslip.Benefits += monthlyAmount;
         }
 
-        return employee;
+        return payslip;
     }
 }

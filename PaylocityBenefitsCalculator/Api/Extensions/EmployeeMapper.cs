@@ -3,7 +3,7 @@ using System.Linq;
 using EmployeeBenefitCostCalculation.Api.Dtos.Employee;
 using EmployeeBenefitCostCalculation.Api.Models;
 
-namespace EmployeeBenefitCostCalculation.Api.Repositories;
+namespace EmployeeBenefitCostCalculation.Api.Extensions;
 
 public static class EmployeeMapper
 {
@@ -15,7 +15,6 @@ public static class EmployeeMapper
             FirstName = employee.FirstName,
             LastName = employee.LastName,
             Salary = employee.Salary,
-            MonthlyBenefits = employee.MonthlyBenefits,
             Dependents = employee.Dependents.Select(d => d.ToDto()).ToList()
         };
     }
@@ -28,7 +27,6 @@ public static class EmployeeMapper
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             Salary = dto.Salary,
-            MonthlyBenefits = dto.MonthlyBenefits,
             Dependents = dto.Dependents.Select(d => d.ToEntity(dto.Id)).ToList()
         };
     }
