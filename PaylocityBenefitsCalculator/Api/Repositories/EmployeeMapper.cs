@@ -15,7 +15,7 @@ public static class EmployeeMapper
             FirstName = employee.FirstName,
             LastName = employee.LastName,
             Salary = employee.Salary,
-            Benefits = employee.Benefits,
+            MonthlyBenefits = employee.MonthlyBenefits,
             Dependents = employee.Dependents.Select(d => d.ToDto()).ToList()
         };
     }
@@ -28,7 +28,7 @@ public static class EmployeeMapper
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             Salary = dto.Salary,
-            Benefits = dto.Benefits,
+            MonthlyBenefits = dto.MonthlyBenefits,
             Dependents = dto.Dependents.Select(d => d.ToEntity(dto.Id)).ToList()
         };
     }

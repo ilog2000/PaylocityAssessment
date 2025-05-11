@@ -19,6 +19,9 @@ public class Program
         // Register repositories
         builder.Services.RegisterRepositories();
 
+        // Register services
+        builder.Services.RegisterServices();
+
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(c =>
