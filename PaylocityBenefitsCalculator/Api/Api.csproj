@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
-	<RootNamespace>PaylocityBenefitsCalculator.Api</RootNamespace>  
+	<RootNamespace>EmployeeBenefitCostCalculation.Api</RootNamespace>  
   </PropertyGroup>
 
   <ItemGroup>
