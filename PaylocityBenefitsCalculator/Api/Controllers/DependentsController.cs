@@ -35,6 +35,7 @@ public class DependentsController : ControllerBase
             return NotFound(new ApiResponse<GetDependentDto>
             {
                 Success = false,
+                Error = "NOT FOUND",
                 Message = "Dependent not found"
             });
         }
