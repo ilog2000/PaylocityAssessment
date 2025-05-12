@@ -1,6 +1,5 @@
-﻿using Api.Models;
-
-using Calc = Api.Extensions.CalculationExtensions;
+﻿using Api.Extensions;
+using Api.Models;
 
 namespace Api.Services;
 
@@ -8,7 +7,8 @@ public class EmployeeBaseRule : IEmployeeCalculationRule
 {
     public EmployeePayslip Apply(EmployeePayslip payslip)
     {
-        payslip.Benefits += Calc.MonthlyToPaycheck(Constants.EmployeeBaseBenefit, Constants.PaychecksPerYear); // Converting monthly benefits to bi-weekly benefits
+        // Employee base benefit is a fixed amount per paycheck
+        payslip.Benefits += Constants.EmployeeBaseBenefit.FromMonthlyToPaycheck(); // Converting monthly value to bi-weekly
         return payslip;
     }
 }

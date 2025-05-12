@@ -19,6 +19,7 @@ public class DecimalFormatConverter : JsonConverter
 
     public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
     {
+        // Convert the decimal value to a string with two decimal places
         writer.WriteValue(string.Format(CultureInfo.InvariantCulture, "{0:N2}", value));
     }
 }

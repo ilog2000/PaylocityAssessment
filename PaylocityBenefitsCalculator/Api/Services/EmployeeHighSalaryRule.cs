@@ -1,6 +1,5 @@
-﻿using Api.Models;
-
-using Calc = Api.Extensions.CalculationExtensions;
+﻿using Api.Extensions;
+using Api.Models;
 
 namespace Api.Services;
 
@@ -14,7 +13,7 @@ public class EmployeeHighSalaryRule : IEmployeeCalculationRule
             benefits = payslip.Employee!.Salary * Constants.HighSalaryBenefit;
         }
 
-        payslip.Benefits += Calc.AnnualToPaycheck(benefits, Constants.PaychecksPerYear); // 2% of annual salary divided by 26 paychecks, rounded to cents
+        payslip.Benefits += benefits.FromAnnualToPaycheck(); // 2% of annual salary divided by 26 paychecks, rounded to cents
 
         return payslip;
     }

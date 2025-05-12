@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 using Api.Dtos.Dependent;
 using Api.Dtos.Employee;
+using Api.Extensions;
 using Api.Models;
 
 using Xunit;
-
-using Calc = Api.Extensions.CalculationExtensions;
 
 namespace ApiTests.IntegrationTests;
 
@@ -123,8 +122,8 @@ public class EmployeeIntegrationTests : IntegrationTest
         {
             EmployeeId = 1,
             EmployeeName = "James LeBron",
-            SalaryPay = Calc.AnnualToPaycheck(75420.99m, Api.Constants.PaychecksPerYear),
-            Benefits = Calc.MonthlyToPaycheck(1000m, Api.Constants.PaychecksPerYear),
+            SalaryPay = 75420.99m.FromAnnualToPaycheck(),
+            Benefits = 1000m.FromMonthlyToPaycheck(),
             PayPeriodStart = new DateTime(2025, 5, 21),
             PayPeriodEnd = new DateTime(2025, 6, 3)
         };  
@@ -141,8 +140,8 @@ public class EmployeeIntegrationTests : IntegrationTest
         {
             EmployeeId = 2,
             EmployeeName = "Morant Ja",
-            SalaryPay = Calc.AnnualToPaycheck(92365.22m, Api.Constants.PaychecksPerYear),
-            Benefits = Calc.MonthlyToPaycheck(1000m + 3 * 600m, Api.Constants.PaychecksPerYear) + Calc.AnnualToPaycheck(92365.22m * 0.02m, Api.Constants.PaychecksPerYear),
+            SalaryPay = 92365.22m.FromAnnualToPaycheck(),
+            Benefits = (1000m + 3 * 600m).FromMonthlyToPaycheck() + (92365.22m * 0.02m).FromAnnualToPaycheck(),
             PayPeriodStart = new DateTime(2025, 5, 21),
             PayPeriodEnd = new DateTime(2025, 6, 3)
         };  
@@ -159,8 +158,8 @@ public class EmployeeIntegrationTests : IntegrationTest
         {
             EmployeeId = 3,
             EmployeeName = "Jordan Michael",
-            SalaryPay = Calc.AnnualToPaycheck(143211.12m, Api.Constants.PaychecksPerYear),
-            Benefits = Calc.MonthlyToPaycheck(1000m + 600m + 200m, Api.Constants.PaychecksPerYear) + Calc.AnnualToPaycheck(143211.12m * 0.02m, Api.Constants.PaychecksPerYear),
+            SalaryPay = (143211.12m).FromAnnualToPaycheck(),
+            Benefits = (1000m + 600m + 200m).FromMonthlyToPaycheck() + (143211.12m * 0.02m).FromAnnualToPaycheck(),
             PayPeriodStart = new DateTime(2025, 5, 21),
             PayPeriodEnd = new DateTime(2025, 6, 3)
         };  

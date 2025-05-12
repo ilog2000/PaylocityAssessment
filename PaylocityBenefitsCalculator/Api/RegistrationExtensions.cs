@@ -11,7 +11,7 @@ public static class RegistrationExtensions
 {
     public static IServiceCollection RegisterRepositories(this IServiceCollection services)
     {
-        // Register repositories as scoped services to comply with the lifetime of database context 
+        // Register repositories as scoped services to comply with the lifetime of database context
         services.AddScoped<IEmployeesRepository, EmployeesRepository>();
         services.AddScoped<IDependentsRepository, DependentsRepository>();
         return services;

@@ -7,7 +7,7 @@ using Api.Models;
 namespace Api.Repositories;
 
 /// <summary>
-/// This class is a stub for the Employees repository.
+/// This class is a stub for the Employees data set.
 /// </summary>
 public static class EmployeesStub
 {

@@ -26,6 +26,7 @@ internal static class ShouldExtensions
         var apiResponse = JsonConvert.DeserializeObject<ApiResponse<T>>(await response.Content.ReadAsStringAsync());
         Assert.True(apiResponse!.Success);
         var decimalConverter = new DecimalFormatConverter();
+        // Use DecimalFormatConverter to serialize data, so that decimal string formatting is consistent
         Assert.Equal(JsonConvert.SerializeObject(expectedContent, decimalConverter), JsonConvert.SerializeObject(apiResponse.Data, decimalConverter));
     }
 
