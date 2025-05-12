@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 using Api.Models;
+using Api.Utils;
 
 using Newtonsoft.Json;
 
@@ -23,8 +24,9 @@ internal static class ShouldExtensions
         await response.ShouldReturn(expectedStatusCode);
         Assert.Equal("application/json", response.Content.Headers.ContentType?.MediaType);
         var apiResponse = JsonConvert.DeserializeObject<ApiResponse<T>>(await response.Content.ReadAsStringAsync());
-        Assert.True(apiResponse.Success);
-        Assert.Equal(JsonConvert.SerializeObject(expectedContent), JsonConvert.SerializeObject(apiResponse.Data));
+        Assert.True(apiResponse!.Success);
+        var decimalConverter = new DecimalFormatConverter();
+        Assert.Equal(JsonConvert.SerializeObject(expectedContent, decimalConverter), JsonConvert.SerializeObject(apiResponse.Data, decimalConverter));
     }
 
     private static void AssertCommonResponseParts(this HttpResponseMessage response, HttpStatusCode expectedStatusCode)

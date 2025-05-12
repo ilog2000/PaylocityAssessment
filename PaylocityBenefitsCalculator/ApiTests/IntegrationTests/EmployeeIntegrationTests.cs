@@ -9,6 +9,8 @@ using Api.Models;
 
 using Xunit;
 
+using Calc = Api.Extensions.CalculationExtensions;
+
 namespace ApiTests.IntegrationTests;
 
 public class EmployeeIntegrationTests : IntegrationTest
@@ -109,6 +111,60 @@ public class EmployeeIntegrationTests : IntegrationTest
     {
         var response = await HttpClient.GetAsync($"/api/v1/employees/{int.MinValue}");
         await response.ShouldReturn(HttpStatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task WhenAskedForPayslipWithNoDependents_ShouldReturnCorrectPayslip()
+    {
+        var year = 2025;
+        var payrollNumber = 11;
+        var response = await HttpClient.GetAsync($"/api/v1/employees/1/payslip?year={year}&payrollNumber={payrollNumber}");
+        var payslip = new GetEmployeePayslipDto
+        {
+            EmployeeId = 1,
+            EmployeeName = "James LeBron",
+            SalaryPay = Calc.AnnualToPaycheck(75420.99m, Api.Constants.PaychecksPerYear),
+            Benefits = Calc.MonthlyToPaycheck(1000m, Api.Constants.PaychecksPerYear),
+            PayPeriodStart = new DateTime(2025, 5, 21),
+            PayPeriodEnd = new DateTime(2025, 6, 3)
+        };  
+        await response.ShouldReturn(HttpStatusCode.OK, payslip);
+    }
+
+    [Fact]
+    public async Task WhenAskedForPayslipWithMultipleDependents_ShouldReturnCorrectPayslip()
+    {
+        var year = 2025;
+        var payrollNumber = 11;
+        var response = await HttpClient.GetAsync($"/api/v1/employees/2/payslip?year={year}&payrollNumber={payrollNumber}");
+        var payslip = new GetEmployeePayslipDto
+        {
+            EmployeeId = 2,
+            EmployeeName = "Morant Ja",
+            SalaryPay = Calc.AnnualToPaycheck(92365.22m, Api.Constants.PaychecksPerYear),
+            Benefits = Calc.MonthlyToPaycheck(1000m + 3 * 600m, Api.Constants.PaychecksPerYear) + Calc.AnnualToPaycheck(92365.22m * 0.02m, Api.Constants.PaychecksPerYear),
+            PayPeriodStart = new DateTime(2025, 5, 21),
+            PayPeriodEnd = new DateTime(2025, 6, 3)
+        };  
+        await response.ShouldReturn(HttpStatusCode.OK, payslip);
+    }
+
+    [Fact]
+    public async Task WhenAskedForPayslipWithAgedDependents_ShouldReturnCorrectPayslip()
+    {
+        var year = 2025;
+        var payrollNumber = 11;
+        var response = await HttpClient.GetAsync($"/api/v1/employees/3/payslip?year={year}&payrollNumber={payrollNumber}");
+        var payslip = new GetEmployeePayslipDto
+        {
+            EmployeeId = 3,
+            EmployeeName = "Jordan Michael",
+            SalaryPay = Calc.AnnualToPaycheck(143211.12m, Api.Constants.PaychecksPerYear),
+            Benefits = Calc.MonthlyToPaycheck(1000m + 600m + 200m, Api.Constants.PaychecksPerYear) + Calc.AnnualToPaycheck(143211.12m * 0.02m, Api.Constants.PaychecksPerYear),
+            PayPeriodStart = new DateTime(2025, 5, 21),
+            PayPeriodEnd = new DateTime(2025, 6, 3)
+        };  
+        await response.ShouldReturn(HttpStatusCode.OK, payslip);
     }
 }
 

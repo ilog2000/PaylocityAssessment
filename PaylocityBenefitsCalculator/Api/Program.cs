@@ -11,7 +11,7 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
+        // -- Add services to the container.
 
         // Add controllers
         builder.Services.AddControllers();
@@ -22,6 +22,7 @@ public class Program
         // Register services
         builder.Services.RegisterServices();
 
+        // Add Swagger/OpenAPI support
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(c =>
@@ -35,6 +36,7 @@ public class Program
             });
         });
 
+        // Configure CORS to allow localhost
         var allowLocalhost = "allow localhost";
         builder.Services.AddCors(options =>
         {
@@ -42,9 +44,11 @@ public class Program
                 policy => { policy.WithOrigins("http://localhost:3000", "http://localhost"); });
         });
 
+        // Create WebApplication
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
+        // -- Configure the HTTP request pipeline.
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();

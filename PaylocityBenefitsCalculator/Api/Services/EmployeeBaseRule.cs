@@ -1,14 +1,14 @@
 ﻿using Api.Models;
 
+using Calc = Api.Extensions.CalculationExtensions;
+
 namespace Api.Services;
 
 public class EmployeeBaseRule : IEmployeeCalculationRule
 {
-    private const decimal EmployeeBaseBenefit = 1000.00m; // Base benefit for each employee
-
     public EmployeePayslip Apply(EmployeePayslip payslip)
     {
-        payslip.Benefits += EmployeeBaseBenefit;
+        payslip.Benefits += Calc.MonthlyToPaycheck(Constants.EmployeeBaseBenefit, Constants.PaychecksPerYear); // Converting monthly benefits to bi-weekly benefits
         return payslip;
     }
 }

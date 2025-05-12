@@ -1,21 +1,20 @@
-﻿using System;
+﻿using Api.Models;
 
-using Api.Models;
+using Calc = Api.Extensions.CalculationExtensions;
 
 namespace Api.Services;
 
 public class EmployeeHighSalaryRule : IEmployeeCalculationRule
 {
-    private const decimal SalaryThreshold = 80_000.00m;
-    private const decimal HighSalaryBenefit = 0.02m; // 2% of annual salary
-
     public EmployeePayslip Apply(EmployeePayslip payslip)
     {
-        if (payslip.Employee!.Salary > SalaryThreshold)
+        var benefits = 0m;
+        if (payslip.Employee!.Salary > Constants.SalaryThreshold)
         {
-            var monthlyAmount = Math.Round(payslip.Employee!.Salary * HighSalaryBenefit / 12, 2); // 2% of annual salary divided by 12 months, rounded to cents
-            payslip.Benefits += monthlyAmount;
+            benefits = payslip.Employee!.Salary * Constants.HighSalaryBenefit;
         }
+
+        payslip.Benefits += Calc.AnnualToPaycheck(benefits, Constants.PaychecksPerYear); // 2% of annual salary divided by 26 paychecks, rounded to cents
 
         return payslip;
     }

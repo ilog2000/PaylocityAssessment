@@ -2,23 +2,25 @@
 
 using Api.Models;
 
+using Calc = Api.Extensions.CalculationExtensions;
+
 namespace Api.Services;
 
 public class EmployeeDependentAgeRule : IEmployeeCalculationRule
 {
-    private const int DependentAgeThreshold = 50;
-    private const decimal DependentAgeBenefit = 200.00m;
-
     public EmployeePayslip Apply(EmployeePayslip payslip)
     {
+        var benefits = 0m;
         foreach (var dependent in payslip.Employee!.Dependents)
         {
             var age = GetDependentAge(dependent.DateOfBirth);
-            if (age > DependentAgeThreshold)
+            if (age > Constants.DependentAgeThreshold)
             {
-                payslip.Benefits += DependentAgeBenefit;
+                benefits += Constants.DependentAgeBenefit;
             }
         }
+
+        payslip.Benefits += Calc.MonthlyToPaycheck(benefits, Constants.PaychecksPerYear); // Converting monthly benefits to bi-weekly benefits
 
         return payslip;
     }

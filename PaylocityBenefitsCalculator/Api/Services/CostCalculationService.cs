@@ -7,6 +7,8 @@ namespace Api.Services;
 
 public class CostCalculationService : ICostCalculationService
 {
+    private const int MaxPaychecks = 26; // Assuming bi-weekly paychecks
+
     private IEnumerable<IEmployeeCalculationRule> _rules;
 
     public CostCalculationService(IEnumerable<IEmployeeCalculationRule> rules)
@@ -22,14 +24,6 @@ public class CostCalculationService : ICostCalculationService
             payslip = rule.Apply(payslip);
         }
 
-        return AdjustPayslipBenefits(payslip);
-    }
-
-    private EmployeePayslip AdjustPayslipBenefits(EmployeePayslip payslip)
-    {
-        // Adjust the benefits to be half of the calculated amount as all rules calculate monthly values,
-        // but we are calculating bi-weekly payslips
-        payslip.Benefits = Math.Round(payslip.Benefits / 2, 2);
         return payslip;
     }
 
@@ -42,7 +36,7 @@ public class CostCalculationService : ICostCalculationService
             // IMPORTANT: The Employee property should always be populated with a deep copy as the underlying business relies on that
             Employee = (Employee)employee.Clone(),
             EmployeeName = employee.LastName + " " + employee.FirstName,
-            SalaryPay = employee.Salary / 2, // Assuming bi-weekly pay
+            SalaryPay = employee.Salary / MaxPaychecks, // Bi-weekly pay
             Benefits = 0m, // Assuming benefits are calculated in the rules
             PayPeriodStart = startDate,
             PayPeriodEnd = endDate
@@ -50,15 +44,16 @@ public class CostCalculationService : ICostCalculationService
         return payslip;
     }
 
-    // Assuming a bi-weekly pay period that starts on the 1st or 15th of the month
+    // Assuming a bi-weekly pay period, so paycheckNumber is 1-26
     private (DateTime StartDate, DateTime EndDate) GetPayPeriod(int year, int paycheckNumber)
     {
-        var month = paycheckNumber / 2 + 1;
-        var isFirstHalfOfMonth = paycheckNumber % 2 == 1;
-        var startDate = new DateTime(year, month, isFirstHalfOfMonth ? 1 : 15);
-        var endDate = isFirstHalfOfMonth
-            ? startDate.AddDays(13) // 1st to 14th
-            : new DateTime(startDate.Year, startDate.Month, DateTime.DaysInMonth(startDate.Year, startDate.Month));
+        if (paycheckNumber < 1 || paycheckNumber > MaxPaychecks)
+        {
+            throw new ArgumentOutOfRangeException(nameof(paycheckNumber), "Paycheck number must be between 1 and 26.");
+        }
+
+        var startDate = new DateTime(year, 1, 1).AddDays((paycheckNumber - 1) * 14);
+        var endDate = startDate.AddDays(13); // 14 days for bi-weekly pay period
 
         return (startDate, endDate);
     }
