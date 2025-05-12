@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EmployeeBenefitCostCalculation.Api.Dtos.Employee;
+namespace Api.Dtos.Employee;
 
 public class GetEmployeePayslipDto
 {

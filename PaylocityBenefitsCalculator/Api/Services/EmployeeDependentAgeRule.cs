@@ -1,8 +1,8 @@
 ﻿using System;
 
-using EmployeeBenefitCostCalculation.Api.Models;
+using Api.Models;
 
-namespace EmployeeBenefitCostCalculation.Api.Services;
+namespace Api.Services;
 
 public class EmployeeDependentAgeRule : IEmployeeCalculationRule
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EmployeeBenefitCostCalculation.Api.Models;
+namespace Api.Models;
 
 public class Dependent : ICloneable
 {

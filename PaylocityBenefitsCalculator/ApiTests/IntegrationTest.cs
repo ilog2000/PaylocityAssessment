@@ -1,33 +1,15 @@
-using System;
 using System.Net.Http;
+
+using Xunit;
 
 namespace ApiTests;
 
-public class IntegrationTest : IDisposable
+public class IntegrationTest :  IClassFixture<TestServer>
 {
-    private HttpClient? _httpClient;
+    public readonly HttpClient HttpClient;
 
-    protected HttpClient HttpClient
+    public IntegrationTest(TestServer factory)
     {
-        get
-        {
-            if (_httpClient == default)
-            {
-                _httpClient = new HttpClient
-                {
-                    //task: update your port if necessary
-                    BaseAddress = new Uri("https://localhost:7124")
-                };
-                _httpClient.DefaultRequestHeaders.Add("accept", "text/plain");
-            }
-
-            return _httpClient;
-        }
-    }
-
-    public void Dispose()
-    {
-        HttpClient.Dispose();
+        HttpClient = factory.CreateClient();
     }
 }
-

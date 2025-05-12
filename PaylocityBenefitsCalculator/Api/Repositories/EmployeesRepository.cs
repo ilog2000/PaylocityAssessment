@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using EmployeeBenefitCostCalculation.Api.Models;
+using Api.Models;
 
-namespace EmployeeBenefitCostCalculation.Api.Repositories;
+namespace Api.Repositories;
 
 public class EmployeesRepository : IEmployeesRepository
 {

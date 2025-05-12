@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using EmployeeBenefitCostCalculation.Api.Dtos.Dependent;
+using Api.Dtos.Dependent;
 
-namespace EmployeeBenefitCostCalculation.Api.Dtos.Employee;
+namespace Api.Dtos.Employee;
 
 public class GetEmployeeDto
 {

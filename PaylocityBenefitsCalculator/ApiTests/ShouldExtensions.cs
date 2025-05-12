@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-using EmployeeBenefitCostCalculation.Api.Models;
+using Api.Models;
 
 using Newtonsoft.Json;
 

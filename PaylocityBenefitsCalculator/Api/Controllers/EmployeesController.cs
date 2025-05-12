@@ -2,17 +2,17 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using EmployeeBenefitCostCalculation.Api.Dtos.Employee;
-using EmployeeBenefitCostCalculation.Api.Extensions;
-using EmployeeBenefitCostCalculation.Api.Models;
-using EmployeeBenefitCostCalculation.Api.Repositories;
-using EmployeeBenefitCostCalculation.Api.Services;
+using Api.Dtos.Employee;
+using Api.Extensions;
+using Api.Models;
+using Api.Repositories;
+using Api.Services;
 
 using Microsoft.AspNetCore.Mvc;
 
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace EmployeeBenefitCostCalculation.Api.Controllers;
+namespace Api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using EmployeeBenefitCostCalculation.Api.Models;
+using Api.Models;
 
-namespace EmployeeBenefitCostCalculation.Api.Repositories;
+namespace Api.Repositories;
 
 public interface IEmployeesRepository
 {

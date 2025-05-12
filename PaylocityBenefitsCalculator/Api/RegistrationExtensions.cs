@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 
-using EmployeeBenefitCostCalculation.Api.Repositories;
-using EmployeeBenefitCostCalculation.Api.Services;
+using Api.Repositories;
+using Api.Services;
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EmployeeBenefitCostCalculation.Api;
+namespace Api;
 
 public static class RegistrationExtensions
 {

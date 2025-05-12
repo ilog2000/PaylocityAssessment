@@ -1,9 +1,9 @@
 using System.Linq;
 
-using EmployeeBenefitCostCalculation.Api.Dtos.Employee;
-using EmployeeBenefitCostCalculation.Api.Models;
+using Api.Dtos.Employee;
+using Api.Models;
 
-namespace EmployeeBenefitCostCalculation.Api.Extensions;
+namespace Api.Extensions;
 
 public static class EmployeeMapper
 {
@@ -15,6 +15,7 @@ public static class EmployeeMapper
             FirstName = employee.FirstName,
             LastName = employee.LastName,
             Salary = employee.Salary,
+            DateOfBirth = employee.DateOfBirth,
             Dependents = employee.Dependents.Select(d => d.ToDto()).ToList()
         };
     }
@@ -27,6 +28,7 @@ public static class EmployeeMapper
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             Salary = dto.Salary,
+            DateOfBirth = dto.DateOfBirth,
             Dependents = dto.Dependents.Select(d => d.ToEntity(dto.Id)).ToList()
         };
     }

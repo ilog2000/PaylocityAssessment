@@ -2,15 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using EmployeeBenefitCostCalculation.Api.Dtos.Dependent;
-using EmployeeBenefitCostCalculation.Api.Dtos.Employee;
-using EmployeeBenefitCostCalculation.Api.Models;
+
+using Api.Dtos.Dependent;
+using Api.Dtos.Employee;
+using Api.Models;
+
 using Xunit;
 
 namespace ApiTests.IntegrationTests;
 
 public class EmployeeIntegrationTests : IntegrationTest
 {
+    public EmployeeIntegrationTests(TestServer factory) : base(factory)
+    {
+    }
+
     [Fact]
     public async Task WhenAskedForAllEmployees_ShouldReturnAllEmployees()
     {
@@ -84,7 +90,6 @@ public class EmployeeIntegrationTests : IntegrationTest
     }
 
     [Fact]
-    //task: make test pass
     public async Task WhenAskedForAnEmployee_ShouldReturnCorrectEmployee()
     {
         var response = await HttpClient.GetAsync("/api/v1/employees/1");
@@ -100,7 +105,6 @@ public class EmployeeIntegrationTests : IntegrationTest
     }
     
     [Fact]
-    //task: make test pass
     public async Task WhenAskedForANonexistentEmployee_ShouldReturn404()
     {
         var response = await HttpClient.GetAsync($"/api/v1/employees/{int.MinValue}");

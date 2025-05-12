@@ -1,7 +1,7 @@
-﻿using EmployeeBenefitCostCalculation.Api.Dtos.Employee;
-using EmployeeBenefitCostCalculation.Api.Models;
+﻿using Api.Dtos.Employee;
+using Api.Models;
 
-namespace EmployeeBenefitCostCalculation.Api.Extensions;
+namespace Api.Extensions;
 
 public static class EmployeePayslipMapper
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EmployeeBenefitCostCalculation.Api.Models;
+namespace Api.Models;
 
 public class Employee : ICloneable
 {
