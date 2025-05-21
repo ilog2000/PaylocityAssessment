@@ -7,8 +7,6 @@ namespace Api.Services;
 
 public class CostCalculationService : ICostCalculationService
 {
-    private const int MaxPaychecks = 26; // Assuming bi-weekly paychecks
-
     private IEnumerable<IEmployeeCalculationRule> _rules;
 
     public CostCalculationService(IEnumerable<IEmployeeCalculationRule> rules)
@@ -36,7 +34,7 @@ public class CostCalculationService : ICostCalculationService
             // IMPORTANT: The Employee property should always be populated with a deep copy as the underlying business relies on that
             Employee = (Employee)employee.Clone(),
             EmployeeName = employee.LastName + " " + employee.FirstName,
-            SalaryPay = employee.Salary / MaxPaychecks, // Bi-weekly pay
+            SalaryPay = employee.Salary / Constants.PaychecksPerYear, // Bi-weekly pay
             Benefits = 0m, // Assuming benefits are calculated in the rules
             PayPeriodStart = startDate,
             PayPeriodEnd = endDate
@@ -47,9 +45,9 @@ public class CostCalculationService : ICostCalculationService
     // Assuming a bi-weekly pay period, so paycheckNumber is 1-26
     private (DateTime StartDate, DateTime EndDate) GetPayPeriod(int year, int paycheckNumber)
     {
-        if (paycheckNumber < 1 || paycheckNumber > MaxPaychecks)
+        if (paycheckNumber < 1 || paycheckNumber > Constants.PaychecksPerYear)
         {
-            throw new ArgumentOutOfRangeException(nameof(paycheckNumber), "Paycheck number must be between 1 and 26.");
+            throw new ArgumentOutOfRangeException(nameof(paycheckNumber), $"Paycheck number must be between 1 and {Constants.PaychecksPerYear}.");
         }
 
         var startDate = new DateTime(year, 1, 1).AddDays((paycheckNumber - 1) * 14);
